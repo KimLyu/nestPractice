@@ -1,12 +1,27 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { TodoModule } from './features/todo/todo.module';
-import { CopyTodoModule } from './features/copy-todo/copy-todo.module';
+
+class MessageBox {
+  message: string;
+  constructor(message: string) {
+    this.message = message;
+  }
+}
 
 @Module({
-  imports: [TodoModule, CopyTodoModule],
+  imports: [],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    AppService,
+    {
+      provide: 'MESSAGE_BOX',
+      useFactory: (appService: AppService) => {
+        const message = appService.getHello();
+        return new MessageBox(message);
+      },
+      inject: [AppService]
+    }
+  ],
 })
-export class AppModule {}
+export class AppModule { }
