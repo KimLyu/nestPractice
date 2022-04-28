@@ -1,27 +1,11 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-
-class MessageBox {
-  message: string;
-  constructor(message: string) {
-    this.message = message;
-  }
-}
+import { HandsomeModule } from './handsome/handsome.module';
 
 @Module({
-  imports: [],
+  imports: [HandsomeModule], //匯入自定義provider
   controllers: [AppController],
-  providers: [
-    AppService,
-    {
-      provide: 'MESSAGE_BOX',
-      useFactory: (appService: AppService) => {
-        const message = appService.getHello();
-        return new MessageBox(message);
-      },
-      inject: [AppService]
-    }
-  ],
+  providers: [AppService],
 })
 export class AppModule { }
