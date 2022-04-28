@@ -1,23 +1,30 @@
-import { Controller, Post, Body, Get, Param, HttpCode, HttpStatus } from '@nestjs/common';
-
+import { Controller, Post, Body, Get, Param, HttpCode, HttpStatus, Header } from '@nestjs/common';
+import { CreateTodoDto } from "./DTO/create-todo.dto"
 @Controller('todos')
 export class TodoController {
-  @Get(':id')
-  @HttpCode(HttpStatus.NO_CONTENT)
-  get(@Param('id') id: string) {
-    return {
-      id,
-      title: `Title ${id}`,
-      description: ''
-    };
-  }
+  // @Get(':id')
+  // @HttpCode(HttpStatus.NO_CONTENT)
+  // get(@Param('id') id: string) {
+  //   return {
+  //     id,
+  //     title: `Title ${id}`,
+  //     description: ''
+  //   };
+  // }
 
   @Post()
-  create(
-    @Body('title') title: string,
-    @Body('description') description?: string
-  ) {
+  create(@Body() dto: CreateTodoDto) {
     const id = 1;
-    return { id, title, description };
+    return { id, ...dto };
+  }
+
+  @Get()
+  @Header('X-Hao-headers', '1')
+  getAll() {
+    return {
+      id: 1,
+      title: 'Title 1',
+      description: 'header test'
+    };
   }
 }
