@@ -1,19 +1,23 @@
 import { Module } from '@nestjs/common';
-//自定義參數 物件畫
+
 const HANDSOME_HAO = {
   provide: 'HANDSOME_MAN',
-  useValue: {
-    name: 'HAO'
+  useFactory: async () => {
+    //模擬需經過一段時間創建 使用useFactory 2秒後才創建
+    const getHAO = new Promise(resolve => {
+      setTimeout(() => resolve({ name: 'HAO' }), 2000);
+    });
+    const HAO = await getHAO;
+    return HAO;
   }
 };
 
-//用常數
 @Module({
   providers: [
-    HANDSOME_HAO //物件化參數
+    HANDSOME_HAO
   ],
   exports: [
-    HANDSOME_HAO //匯出用
+    HANDSOME_HAO
   ]
 })
 export class HandsomeModule { }
