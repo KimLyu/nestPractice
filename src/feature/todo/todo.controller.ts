@@ -1,14 +1,17 @@
-import { Controller, Get, ParseArrayPipe, Query } from '@nestjs/common';
+import { Body, Controller, Param, Patch, UsePipes, ValidationPipe } from '@nestjs/common';
+import { UpdateTodoDto } from './dto/update-todo.dto';
 
 @Controller('todos')
 export class TodoController {
-  @Get()
-  get(
-
-    //將idd用','分開後，內容是Number型態，並存入array中。
-    @Query('ids', new ParseArrayPipe({ items: Number, separator: ',' }))
-    ids: number[]
+  @Patch(':id')
+  @UsePipes(ValidationPipe)
+  update(
+    @Param('id') id: number,
+    @Body() dto: UpdateTodoDto
   ) {
-    return ids;
+    return {
+      id,
+      ...dto
+    };
   }
 }
