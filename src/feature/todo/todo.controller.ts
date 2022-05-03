@@ -1,15 +1,14 @@
-import { Body, Controller, ParseArrayPipe, Post } from '@nestjs/common';
-import { CreateTodoDto } from './dto/create-todo.dto';
+import { Controller, Get, ParseArrayPipe, Query } from '@nestjs/common';
 
 @Controller('todos')
 export class TodoController {
+  @Get()
+  get(
 
-  @Post()
-  create(
-    @Body(new ParseArrayPipe({ items: CreateTodoDto }))//Array的內容對應到DTO
-    dtos: CreateTodoDto[]
+    //將idd用','分開後，內容是Number型態，並存入array中。
+    @Query('ids', new ParseArrayPipe({ items: Number, separator: ',' }))
+    ids: number[]
   ) {
-    return dtos;
+    return ids;
   }
-
 }

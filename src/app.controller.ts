@@ -5,14 +5,4 @@ import { AppService } from './app.service';
 export class AppController {
   constructor(private readonly appService: AppService) { }
 
-  @Get(':id')
-  getUser(
-    @Param('id', new ParseIntPipe({
-      exceptionFactory: () => new NotAcceptableException('無法解析為數字')
-    }))
-    id: number
-  ) {
-    return this.appService.getUser(id);
-  }
-
 }
