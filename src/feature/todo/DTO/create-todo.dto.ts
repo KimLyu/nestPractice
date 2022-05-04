@@ -1,14 +1,17 @@
-import { IsNotEmpty, IsOptional, IsString, MaxLength } from 'class-validator';
+import { ApiProperty } from '@nestjs/swagger';
 
 
 export class CreateTodoDto {
 
-  @MaxLength(20)
-  @IsString()
-  @IsNotEmpty()
+  @ApiProperty({
+    type: String,
+  })
   public readonly title: string;
 
-  @IsString()
-  @IsOptional()
+
+  @ApiProperty({
+    type: String,
+
+  })
   public readonly description?: string;
 }
