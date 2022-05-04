@@ -1,13 +1,18 @@
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-// import { HandsomeModule } from './handsome/handsome.module';
-import { TodoModule } from './feature/todo/todo.module';
+import { TodoModule } from './features/todo/todo.module';
+import { LoggerMiddleware } from './middlewares/logger.middleware';
 
 @Module({
-  // imports: [HandsomeModule], // 模擬 未正確注入的module
-  controllers: [AppController],
-  providers: [AppService],
   imports: [TodoModule],
+  controllers: [AppController],
+  providers: [
+    AppService
+  ]
 })
-export class AppModule { }
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(LoggerMiddleware).forRoutes('/todos')
+  }
+}
