@@ -7,11 +7,10 @@ import { UpdateCoffeeDto } from './dto/update-coffee.dto';
 
 @Injectable()
 export class CoffeesService {
-
   constructor(
     @InjectRepository(Coffee)
     private readonly coffeeRepository: Repository<Coffee>,
-  ) { }
+  ) {}
 
   findAll() {
     return this.coffeeRepository.find();
@@ -19,13 +18,12 @@ export class CoffeesService {
 
   async findOne(id: number) {
     const coffee = await this.coffeeRepository.findOne({
-      where: { id }
+      where: { id },
     });
     if (!coffee) {
-      throw new NotFoundException(`Coffee #${id} not found`)
+      throw new NotFoundException(`Coffee #${id} not found`);
     }
     return coffee;
-
   }
 
   async create(createCoffeeDto: CreateCoffeeDto) {
@@ -34,18 +32,19 @@ export class CoffeesService {
   }
 
   async update(id: string, updateCoffeeDto: UpdateCoffeeDto) {
-    const coffee = await this.coffeeRepository.preload(
-      { id: +id, ...updateCoffeeDto, }
-    );
+    const coffee = await this.coffeeRepository.preload({
+      id: +id,
+      ...updateCoffeeDto,
+    });
     if (!coffee) {
-      throw new NotFoundException(`Coffee #${id} not found`)
+      throw new NotFoundException(`Coffee #${id} not found`);
     }
     return this.coffeeRepository.save(coffee);
   }
 
   async remove(id: number) {
     const coffee = await this.coffeeRepository.findOne({
-      where: { id }
+      where: { id },
     });
     return this.coffeeRepository.remove(coffee);
   }

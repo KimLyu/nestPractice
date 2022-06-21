@@ -16,15 +16,9 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       database: 'postgres',
       autoLoadEntities: true, //自動加載
       synchronize: true, //使資料庫自動同步 生產模式需禁用!?
-    })
+    }),
   ],
-  controllers: [
-    AppController,
-
-  ],
-  providers: [
-    AppService
-  ]
+  controllers: [AppController],
+  providers: [AppService],
 })
-export class AppModule {
-}
+export class AppModule {}
