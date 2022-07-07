@@ -17,12 +17,12 @@ export class CoffeesController {
   constructor(private readonly coffeeService: CoffeesService) {}
 
   @Get()
-  findAll(@Query() paginationQuery) {
+  findAll() {
     return this.coffeeService.findAll();
   }
 
   @Get(':id')
-  findOne(@Param('id') id: number) {
+  findOne(@Param('id') id: string) {
     return this.coffeeService.findOne(id);
   }
 
@@ -37,7 +37,7 @@ export class CoffeesController {
   }
 
   @Delete(':id')
-  reomve(@Param('id') id: number) {
+  reomve(@Param('id') id: string) {
     return this.coffeeService.remove(id);
   }
 }

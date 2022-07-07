@@ -1,6 +1,4 @@
-// import { Injectable } from '@nestjs/common';
-import { PartialType } from '@nestjs/swagger';
+import { PartialType } from '@nestjs/mapped-types'; //swagger會錯
 import { CreateCoffeeDto } from './create-coffee.dto';
 
-// @Injectable()
 export class UpdateCoffeeDto extends PartialType(CreateCoffeeDto) {}
