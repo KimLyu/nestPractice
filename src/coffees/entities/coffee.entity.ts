@@ -19,6 +19,8 @@ export class Coffee {
   brand: string;
 
   @JoinTable() //在這張表 需要顯示這個資料
-  @ManyToMany((type) => Flavor, (flavor) => flavor.coffees) //表單關係
-  flavors: string[];
+  @ManyToMany((type) => Flavor, (flavor) => flavor.coffees, {
+    cascade: true,
+  }) //表單關係
+  flavors: Flavor[]; //insert
 }
