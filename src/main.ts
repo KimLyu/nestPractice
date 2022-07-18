@@ -8,7 +8,11 @@ async function bootstrap() {
   app.useGlobalPipes(
     new ValidationPipe({
       whitelist: true, //過濾無效參數
+      transform: true,
       forbidNonWhitelisted: true, //收到無效參數回傳錯誤
+      transformOptions: {
+        enableImplicitConversion: true, //不再需要Type裝飾符
+      },
     }),
   );
 

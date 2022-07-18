@@ -13,10 +13,13 @@ export class Coffee {
   id: number;
 
   @Column()
-  name: string;
+  title: string;
 
   @Column()
   brand: string;
+
+  @Column({ default: 0 })
+  recommendations: number;
 
   @JoinTable() //在這張表 需要顯示這個資料
   @ManyToMany((type) => Flavor, (flavor) => flavor.coffees, {
